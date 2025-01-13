@@ -1,0 +1,41 @@
+services:
+  redis:
+    container_name: redis-turkcell
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis-data:/data
+    networks:
+      - staj_network
+
+  redis-insight:
+    container_name: redis-insight-turkcell
+    image: redis/redisinsight:latest
+    ports:
+      - "5540:5540"
+    
+    depends_on:
+      - redis
+    environment:
+      REDIS_URI: "redis://redis:6379"
+    networks:
+      - staj_network
+    
+  rabbitmq:
+    container_name: rabbitmq-turkcell
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "admin"
+    volumes:
+      - ./rabbitmq-data:/var/lib/rabbitmq
+    networks:
+      - staj_network
+
+networks:
+  staj_network:
+    driver: bridge
