@@ -12,8 +12,6 @@ public class Main {
 
         Random random = new Random();
 
-
-
         Engineer engineer = new Engineer("Enes", "Cevik", 22, random.nextInt(100, 999), Position.JUNIOR, "Data Engineer");
 
         AtomicReference<Employee> employee = new AtomicReference<>(engineer);
@@ -27,5 +25,7 @@ public class Main {
 
         int id = engineer.createId();
         System.out.println(id);
+
+        System.out.println(engineer.getClassName());
     }
 }
