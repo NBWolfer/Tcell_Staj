@@ -1,4 +1,5 @@
 rabbitmq-data
 redis-data
+mysql-data
 .idea
 Java_Prep/*
