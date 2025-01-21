@@ -9,7 +9,4 @@ public class StajProjesiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(StajProjesiApplication.class, args);
 	}
-
-
-
 }

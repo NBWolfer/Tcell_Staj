@@ -1,7 +1,7 @@
-package org.example.staj_projesi;
+package org.example.staj_projesi.dtos;
 
-import java.util.HashMap;
-
+// Class definition according to API that we request || IDE suggests to convert this class into record class type (Research)
+// Research for if you can handle this data more conveniently
 public class Client2DTO {
     private final Double USD;
     private final Double EUR;

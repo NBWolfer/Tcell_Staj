@@ -1,7 +1,8 @@
-package org.example.staj_projesi;
+package org.example.staj_projesi.dtos;
 
 import java.util.HashMap;
 
+// Class definition according to API that we request || IDE suggests to convert this class into record class type (Research)
 public class Client1DTO {
     private final String result;
     private final String faq;
@@ -10,6 +11,8 @@ public class Client1DTO {
     private final String end_date;
     private final String base_code;
     private final HashMap<String,Double> conversion_rates;
+
+
     public Client1DTO(String result, String faq, String terms_of_use, String start_date, String end_date, String base_code, HashMap<String, Double> conversion_rates) {
         this.result = result;
         this.faq = faq;

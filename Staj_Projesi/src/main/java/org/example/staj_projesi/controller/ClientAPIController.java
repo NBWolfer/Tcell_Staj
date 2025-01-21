@@ -1,30 +1,34 @@
 package org.example.staj_projesi.controller;
 
-import org.example.staj_projesi.Client1DTO;
-import org.example.staj_projesi.Client2DTO;
+import org.example.staj_projesi.client.factory.APIClientFactory;
+import org.example.staj_projesi.client.impl.Clients;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.client.WebClient;
 
 @RestController
 public class ClientAPIController {
 
-    private final WebClient wc;
+    private final APIClientFactory clientFactory;
 
-    public ClientAPIController(WebClient.Builder builder) {
-        this.wc = builder.baseUrl("https://6f0028f3-b77d-451e-8471-7ed5480d2e3d.mock.pstmn.io/").build();
+    public ClientAPIController(APIClientFactory clientFactory) {
+        this.clientFactory = clientFactory;
     }
 
-    @GetMapping(value = "/client1")
-    public Client1DTO fetchDataFromClient1(){
-        var data = wc.get().uri("/client1").retrieve().bodyToMono(Client1DTO.class).block();
-        return data;
-    }
+    // Makes requests to specified URL according to URI, and take fetched objects as DTO defined in dtos package
+    // Params: client1, client2
+    @GetMapping(value = "/fetchClient")
+    public ResponseEntity<?> fetchDataFromClient(@RequestParam String clientName){
+        Clients<?> client = clientFactory.getClient(clientName);
 
-    @GetMapping(value = "/client2")
-    public Client2DTO fetchDataFromClient2(){
-        var data = wc.get().uri("/client2").retrieve().bodyToMono(Client2DTO.class).block();
-        return data;
-    }
+        // If client is null, returns 404
+        if (client == null)
+        {
+            return ResponseEntity.notFound().build();
+        }
 
+        return ResponseEntity.ok().body(client.getDTO().block()); // block() makes this process synchron and makes thread that runs http request wait
+                                                                  // So, research this line and look if you can asynchron this process
+    }
 }
