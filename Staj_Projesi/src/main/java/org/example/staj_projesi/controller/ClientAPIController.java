@@ -1,11 +1,11 @@
 package org.example.staj_projesi.controller;
 
-import org.example.staj_projesi.client.factory.APIClientFactory;
-import org.example.staj_projesi.client.impl.Clients;
+import org.example.staj_projesi.domain.model.dto.ClientDTO;
+import org.example.staj_projesi.service.factory.APIClientFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 public class ClientAPIController {
@@ -16,19 +16,14 @@ public class ClientAPIController {
         this.clientFactory = clientFactory;
     }
 
-    // Makes requests to specified URL according to URI, and take fetched objects as DTO defined in dtos package
-    // Params: client1, client2
     @GetMapping(value = "/fetchClient")
-    public ResponseEntity<?> fetchDataFromClient(@RequestParam String clientName){
-        Clients<?> client = clientFactory.getClient(clientName);
-
-        // If client is null, returns 404
-        if (client == null)
-        {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<ClientDTO> fetchDataFromClient(){
+        try {
+            ClientDTO clientDTO = clientFactory.getAllDTOs();
+            return ResponseEntity.status(200).body(clientDTO);
         }
-
-        return ResponseEntity.ok().body(client.getDTO().block()); // block() makes this process synchron and makes thread that runs http request wait
-                                                                  // So, research this line and look if you can asynchron this process
+        catch (Exception e){
+            return ResponseEntity.unprocessableEntity().body(null);
+        }
     }
 }

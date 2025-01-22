@@ -1,6 +1,6 @@
 services:
   redis:
-    container_name: redis-turkcell
+    container_name: redis-tcell-staj
     image: redis:latest
     ports:
       - "6379:6379"
@@ -10,7 +10,7 @@ services:
       - staj_network
 
   redis-insight:
-    container_name: redis-insight-turkcell
+    container_name: redis-insight-tcell-staj
     image: redis/redisinsight:latest
     ports:
       - "5540:5540"
@@ -23,7 +23,7 @@ services:
       - staj_network
     
   rabbitmq:
-    container_name: rabbitmq-turkcell
+    container_name: rabbitmq-tcell-staj
     image: rabbitmq:3-management
     ports:
       - "5672:5672"
@@ -37,13 +37,13 @@ services:
       - staj_network
 
   mysql:
-    container_name: mysql-turkcell
+    container_name: mysql-tcell-staj
     image: mysql:latest
     ports:
       - "42333:3306"
     environment:
       MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_DATABASE: "turkcell"
+      MYSQL_DATABASE: "tcell_staj"
     
     volumes:
       - ./mysql-data:/var/lib/mysql
