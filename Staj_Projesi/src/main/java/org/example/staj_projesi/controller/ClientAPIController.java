@@ -18,12 +18,7 @@ public class ClientAPIController {
 
     @GetMapping(value = "/fetchClient")
     public ResponseEntity<ClientDTO> fetchDataFromClient(){
-        try {
             ClientDTO clientDTO = clientFactory.getAllDTOs();
             return ResponseEntity.status(200).body(clientDTO);
-        }
-        catch (Exception e){
-            return ResponseEntity.unprocessableEntity().body(null);
-        }
     }
 }

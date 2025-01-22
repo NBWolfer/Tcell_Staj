@@ -15,7 +15,7 @@ public class APIClientFactory {
          this.clients = clients;
     }
 
-    public ClientService<?> getClient(String clientName) {
+    private ClientService<?> getClient(String clientName) {
         clientName = clientName.toLowerCase();
         return clients.get(clientName);
     }
