@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.lang.NonNull;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.HashMap;
@@ -14,7 +15,8 @@ import java.util.HashMap;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ClientResponseDTO {
 
-    @JsonAlias({"clientName", "clientname"})
+    @JsonAlias({"clientName", "client_name"})
+    @NonNull
     private String clientName;
 
     @JsonAlias({"USD", "usd"})

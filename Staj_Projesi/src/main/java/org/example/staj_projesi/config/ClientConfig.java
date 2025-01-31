@@ -15,11 +15,11 @@ public class ClientConfig {
 
         }
 
-        public String getClient1_url() {
+        public String getClient1Url() {
             return client1_url;
         }
 
-        public String getClient2_url() {
+        public String getClient2Url() {
             return client2_url;
         }
 }
