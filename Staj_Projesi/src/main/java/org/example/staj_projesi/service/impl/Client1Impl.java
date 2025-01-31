@@ -3,36 +3,41 @@ package org.example.staj_projesi.service.impl;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
-import org.example.staj_projesi.config.ConfigurationService;
+import org.example.staj_projesi.config.ClientConfig;
 import org.example.staj_projesi.domain.model.dto.Client1DTO;
 import org.example.staj_projesi.service.ClientService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.Set;
 
 @Component("client1")
 public class Client1Impl implements ClientService<Client1DTO> {
-    private final WebClient webClient;
-    private final ConfigurationService configuration;
+    private final ClientConfig configuration;
     private final Validator validator;
 
-    public Client1Impl(ConfigurationService configuration, Validator validator) {
+    private final String url;
+
+    public Client1Impl(ClientConfig configuration, Validator validator) {
         this.validator = validator;
         this.configuration = configuration;
-        String url = configuration.getValue("client_url");
-        webClient = WebClient.builder().baseUrl(url).build();
+        this.url = configuration.getClient1_url();
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     @Override
-    public Client1DTO getDTO() {
-        String uri = "/client1";
-        return webClient.get().uri(uri).retrieve()
+    public Mono<Client1DTO> getDTO() {
+        WebClient webClient = WebClient.builder().baseUrl(url).build();
+        return webClient.get().retrieve()
                 .bodyToMono(Client1DTO.class)
                 .map(dto -> {
                     validate(dto);
                    return dto;
-                }).block();
+                });
     }
 
     public void validate(Client1DTO dto) {

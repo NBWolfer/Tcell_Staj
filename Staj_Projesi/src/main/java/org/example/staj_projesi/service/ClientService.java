@@ -1,5 +1,7 @@
 package org.example.staj_projesi.service;
 
+import reactor.core.publisher.Mono;
+
 public interface ClientService<T> {
-    T getDTO();
+    Mono<T> getDTO();
 }

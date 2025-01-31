@@ -19,7 +19,7 @@ public class Client2DTO {
 
     @JsonAlias({"GPB", "gpb"})
     @NotNull(message = "Cannot be null")
-    private final Double gpb;
+    private final Double gbp;
 
     @JsonAlias({"CAD", "cad"})
     @NotNull(message = "Cannot be null")
@@ -33,10 +33,10 @@ public class Client2DTO {
     @NotNull(message = "Cannot be null")
     private final Double rub;
 
-    public Client2DTO(Double usd, Double eur, Double gpb, Double cad, Double chf, Double rub) {
+    public Client2DTO(Double usd, Double eur, Double gbp, Double cad, Double chf, Double rub) {
         this.usd = usd;
         this.eur = eur;
-        this.gpb = gpb;
+        this.gbp = gbp;
         this.cad = cad;
         this.chf = chf;
         this.rub = rub;
@@ -50,8 +50,8 @@ public class Client2DTO {
         return eur;
     }
 
-    public Double getGpb() {
-        return gpb;
+    public Double getGbp() {
+        return gbp;
     }
 
     public Double getCad() {

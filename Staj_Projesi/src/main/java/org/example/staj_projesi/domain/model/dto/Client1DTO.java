@@ -46,12 +46,7 @@ public class Client1DTO {
     @NotNull(message = "Cannot be null")
     private final HashMap<String,Double> conversionRates;
 
-    @NotNull(message = "Cannot be null")
-    @NotBlank(message = "Cannot be blank")
-    private final String test;
-
-
-    public Client1DTO(String result, String faq, String termsOfUse, String startDate, String endDate, String baseCode, HashMap<String, Double> conversionRates, String test) {
+    public Client1DTO(String result, String faq, String termsOfUse, String startDate, String endDate, String baseCode, HashMap<String, Double> conversionRates) {
         this.result = result;
         this.faq = faq;
         this.termsOfUse = termsOfUse;
@@ -59,7 +54,6 @@ public class Client1DTO {
         this.endDate = endDate;
         this.baseCode = baseCode;
         this.conversionRates = conversionRates;
-        this.test = test;
     }
 
     public String getResult() {
@@ -88,9 +82,5 @@ public class Client1DTO {
 
     public HashMap<String, Double> getConversionRates() {
         return conversionRates;
-    }
-
-    public String getTest() {
-        return test;
     }
 }
