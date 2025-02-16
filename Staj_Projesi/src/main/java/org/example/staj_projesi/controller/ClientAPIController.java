@@ -1,24 +1,27 @@
 package org.example.staj_projesi.controller;
 
-import org.example.staj_projesi.domain.model.dto.ClientDTO;
-import org.example.staj_projesi.service.factory.APIClientFactory;
+import lombok.RequiredArgsConstructor;
+import org.example.staj_projesi.domain.model.dto.ClientResponseDTO;
+import org.example.staj_projesi.domain.repository.ClientRepository;
+import org.example.staj_projesi.service.impl.ClientServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
+
+import java.util.HashMap;
 
 
 @RestController
+@RequiredArgsConstructor
 public class ClientAPIController {
 
-    private final APIClientFactory clientFactory;
+    private final ClientServiceImpl currencyService;
+    private ClientRepository clientRepository;
 
-    public ClientAPIController(APIClientFactory clientFactory) {
-        this.clientFactory = clientFactory;
-    }
-
-    @GetMapping(value = "/fetchClient")
-    public ResponseEntity<ClientDTO> fetchDataFromClient(){
-            ClientDTO clientDTO = clientFactory.getAllDTOs();
-            return ResponseEntity.status(200).body(clientDTO);
+    @GetMapping("/fetchClients")
+    public Mono<ResponseEntity<HashMap<String, ClientResponseDTO>>> getExchangeRates() {
+        return currencyService.convertToHashMapAndSaveAsync()
+                .map(ResponseEntity::ok);
     }
 }
